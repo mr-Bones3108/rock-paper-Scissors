@@ -12,38 +12,45 @@
             padding: 0;
         }
 
-        .btn {
-            text-align: center;
-            margin-top: 50px;
+        .container{
+            display: flex;
+          justify-content: center;
+            align-items: center;
+            gap: 30px;
+            background-color:  #f0f0f0;
+            padding: 20px;
+            height: 50vh;
         }
 
-        p {
-            font-size: 18px;
-            margin: 10px 0;
-        }
-
-        #playButton {
-            background-color: #007BFF;
-            color: white;
-            border: none;
+        .container button {
+            background-color: #3cb371;
+            color: #fff;
+            font-size: 16px;
             padding: 10px 20px;
-            font-size: 20px;
+            border: none;
             cursor: pointer;
-            transition: background-color 0.3s ease;
-        }
+            border-radius: 5px;
+    }
 
-        #playButton:hover {
-            background-color: #0056b3;
+        .container button:hover {
+            background-color: #1a9250;
         }
+        
     </style>
 </head>
 <body>
-    <div class="btn">
+    <!-- <div class="btn">
         <p>Rock paper scissor game!</p>
         <p>Step 1: Open the console to play the game.</p>
         <p>Step 2: Click the button to start the game.</p>
         <button id="playButton">Start</button>
+    </div> -->
+    <div class="container">
+        <button id="rock">Rock</button>
+        <button id="paper">Paper</button>
+        <button id="scissor">Scissor</button>
     </div>
+  
     <script src="script.js"></script>
 </body>
 </html>

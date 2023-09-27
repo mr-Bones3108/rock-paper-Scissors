@@ -1,7 +1,8 @@
 // let playerScore = 0
 // let computerScore =0
+const conatinerDiv = document.querySelector('div')
 
-const playRockPaperScissor = ()=>{
+const playRockPaperScissor = (userInput)=>{
     let getComputerChoice = ()=>{
         const chooseOne = ["rock", "paper", "scissor"]
         const RandomIndex = Math.floor(Math.random() * chooseOne.length)
@@ -10,8 +11,11 @@ const playRockPaperScissor = ()=>{
     
     let computerSelection = getComputerChoice()
     
-    const userInput = prompt('Please type between:- rock, paper, scissor');
     let playerSelection = userInput.toLocaleLowerCase()
+    const playerDiv = document.createElement('p')
+    playerDiv.textContent=`player Selected ${playerSelection}`
+    conatinerDiv.appendChild(playerDiv)
+
     console.log("player :",playerSelection)
     console.log("computer :",computerSelection)
     
@@ -47,6 +51,8 @@ const playRockPaperScissor = ()=>{
 
 
 
+
+
 // const game = ()=>{
 //     for(let i=0; i<3;i++){
 //         playRockPaperScissor()
@@ -64,14 +70,34 @@ const playRockPaperScissor = ()=>{
     
 // }
 
-document.getElementById("playButton").addEventListener("click", () => {
-    playRockPaperScissor()
+// document.getElementById("playButton").addEventListener("click", () => {
+//     playRockPaperScissor()
+// });
+
+// playRockPaperScissor()
+
+
+
+
+const rockBtn = document.getElementById('rock');
+const paperBtn = document.getElementById('paper');
+const scissorBtn = document.getElementById('scissor');
+
+rockBtn.addEventListener('click', function () {
+    const buttonText = rockBtn.textContent;
+    playRockPaperScissor(buttonText)
 });
 
 
+paperBtn.addEventListener('click',function(){
+    const buttonText = paperBtn.textContent;
+    playRockPaperScissor(buttonText)
+});
 
-
-
+scissorBtn.addEventListener('click',function(){
+    const buttonText = scissorBtn.textContent;
+    playRockPaperScissor(buttonText)
+})
 
 
 
