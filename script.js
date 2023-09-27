@@ -1,12 +1,7 @@
-
-
-
-let playerScore = 0
-let computerScore =0
+// let playerScore = 0
+// let computerScore =0
 
 const playRockPaperScissor = ()=>{
-    
-
     let getComputerChoice = ()=>{
         const chooseOne = ["rock", "paper", "scissor"]
         const RandomIndex = Math.floor(Math.random() * chooseOne.length)
@@ -34,43 +29,43 @@ const playRockPaperScissor = ()=>{
             (playerSelection === "paper" && computerSelection === "rock") ||
             (playerSelection === "scissors" && computerSelection === "paper")
           ) {
-            playerScore++
+            // playerScore++
             return `You Win! ${playerSelection} beats ${computerSelection}`;
           }
     
           // Otherwise, the computer wins
-          computerScore++
+        //   computerScore++
           return `You Lose! ${computerSelection} beats ${playerSelection}`;
           
     };
     
     const result = playRound(playerSelection, computerSelection);
     console.log(result);
-    console.log(`playerScore is ${playerScore}`)
-    console.log(`computerScore is ${computerScore}`)
+    // console.log(`playerScore is ${playerScore}`)
+    // console.log(`computerScore is ${computerScore}`)
 }
 
 
 
-const game = ()=>{
-    for(let i=0; i<3;i++){
-        playRockPaperScissor()
-    }
+// const game = ()=>{
+//     for(let i=0; i<3;i++){
+//         playRockPaperScissor()
+//     }
 
-    if (playerScore > computerScore) {
-        console.log("You win the game!");
-      } else if (computerScore > playerScore) {
-        console.log("Computer wins the game!");
-      } else {
-        console.log("It's a tie!");
-    }
-    playerScore=0
-    computerScore=0
+//     if (playerScore > computerScore) {
+//         console.log("You win the game!");
+//       } else if (computerScore > playerScore) {
+//         console.log("Computer wins the game!");
+//       } else {
+//         console.log("It's a tie!");
+//     }
+//     playerScore=0
+//     computerScore=0
     
-}
+// }
 
 document.getElementById("playButton").addEventListener("click", () => {
-    game();
+    playRockPaperScissor()
 });
 
 
