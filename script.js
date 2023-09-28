@@ -1,9 +1,31 @@
-// let playerScore = 0
-// let computerScore =0
+let playerScore = 0
+let computerScore =0
 const continerDiv = document.getElementsByClassName('container')
 const container = document.getElementById('display')
-// container.style.background = "green"
-// container.textContent = "updated"
+
+const playRound = (playerSelection,computerSelection)=>{
+    playerSelection = playerSelection.toLocaleLowerCase()
+    computerSelection = computerSelection.toLocaleLowerCase()
+
+    if(playerSelection === computerSelection){
+        return "It's a tie!";
+    }
+
+    if (
+        (playerSelection === "rock" && computerSelection === "scissors") ||
+        (playerSelection === "paper" && computerSelection === "rock") ||
+        (playerSelection === "scissors" && computerSelection === "paper")
+      ) {
+        playerScore++
+        return `You Win! ${playerSelection} beats ${computerSelection}`;
+      }
+
+      // Otherwise, the computer wins
+      computerScore++
+      return `You Lose! ${computerSelection} beats ${playerSelection}`;
+
+};
+
 
 const playRockPaperScissor = (userInput)=>{
     let getComputerChoice = ()=>{
@@ -26,41 +48,27 @@ const playRockPaperScissor = (userInput)=>{
     console.log("computer :",computerSelection)
     
     
-    const playRound = (playerSelection,computerSelection)=>{
-        playerSelection = playerSelection.toLocaleLowerCase()
-        computerSelection = computerSelection.toLocaleLowerCase()
-    
-        if(playerSelection === computerSelection){
-            return "It's a tie!";
-        }
-    
-        if (
-            (playerSelection === "rock" && computerSelection === "scissors") ||
-            (playerSelection === "paper" && computerSelection === "rock") ||
-            (playerSelection === "scissors" && computerSelection === "paper")
-          ) {
-            // playerScore++
-            return `You Win! ${playerSelection} beats ${computerSelection}`;
-          }
-    
-          // Otherwise, the computer wins
-        //   computerScore++
-          return `You Lose! ${computerSelection} beats ${playerSelection}`;
-
-          
-    };
-    
     const result = playRound(playerSelection, computerSelection);
-    disableButtonAll();
     const resultDiv = document.createElement('p')
     resultDiv.textContent = result
     container.appendChild(resultDiv)
-    // console.log(`playerScore is ${playerScore}`)
-    // console.log(`computerScore is ${computerScore}`)
+
+
+    const playerScoreDiv = document.createElement('p')
+    playerScoreDiv.textContent = `playerScore is ${playerScore}`
+    container.appendChild(playerScoreDiv)
+
+
+    const compScoreDiv = document.createElement('p')
+    compScoreDiv.textContent = `computerScore is ${computerScore}`
+    container.appendChild(compScoreDiv)
+
+
     const buttonDiv = document.createElement('button')
     buttonDiv.textContent="play Again"
     container.appendChild(buttonDiv)
     buttonDiv.classList.add("replay")
+    
     
     buttonDiv.addEventListener('click',function(){
         location.reload();
@@ -70,61 +78,20 @@ const playRockPaperScissor = (userInput)=>{
 
 
 
+const playButtons = document.querySelectorAll('.play');
 
-
-
-// const game = ()=>{
-//     for(let i=0; i<3;i++){
-//         playRockPaperScissor()
-//     }
-
-//     if (playerScore > computerScore) {
-//         console.log("You win the game!");
-//       } else if (computerScore > playerScore) {
-//         console.log("Computer wins the game!");
-//       } else {
-//         console.log("It's a tie!");
-//     }
-//     playerScore=0
-//     computerScore=0
-    
-// }
-
-// document.getElementById("playButton").addEventListener("click", () => {
-//     playRockPaperScissor()
-// });
-
-// playRockPaperScissor()
-
-
-
-
-const rockBtn = document.getElementById('rock');
-const paperBtn = document.getElementById('paper');
-const scissorBtn = document.getElementById('scissor');
-
-function disableButtonAll(){
-    rockBtn.disabled = true;
-    paperBtn.disabled = true;
-    scissorBtn.disabled = true;
+function disableButtons(buttons) {
+    buttons.forEach(button => {
+        button.disabled = true;
+    });
 }
 
-rockBtn.addEventListener('click', function () {
-    const buttonText = rockBtn.textContent;
-    playRockPaperScissor(buttonText)
-    
+playButtons.forEach(button => {
+    button.addEventListener('click', function() {
+        playRockPaperScissor(button.textContent);
+        disableButtons(playButtons);
+    });
 });
-
-
-paperBtn.addEventListener('click',function(){
-    const buttonText = paperBtn.textContent;
-    playRockPaperScissor(buttonText)
-});
-
-scissorBtn.addEventListener('click',function(){
-    const buttonText = scissorBtn.textContent;
-    playRockPaperScissor(buttonText)
-})
 
 
 
