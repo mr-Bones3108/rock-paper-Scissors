@@ -3,80 +3,122 @@ let computerScore =0
 const continerDiv = document.getElementsByClassName('container')
 const container = document.getElementById('display')
 
-const playRound = (playerSelection,computerSelection)=>{
-    playerSelection = playerSelection.toLocaleLowerCase()
-    computerSelection = computerSelection.toLocaleLowerCase()
+var playerScoreElement = document.getElementById("playerScoreValue");
+var computerScoreElement = document.getElementById("computerScoreValue");
 
-    if(playerSelection === computerSelection){
+
+const playRound = (playerSelection, computerSelection) => {
+    playerSelection = playerSelection.toLowerCase();
+    computerSelection = computerSelection.toLowerCase();
+
+    if (playerSelection === computerSelection) {
         return "It's a tie!";
     }
 
     if (
-        (playerSelection === "rock" && computerSelection === "scissors") ||
+        (playerSelection === "rock" && computerSelection === "scissor") ||
         (playerSelection === "paper" && computerSelection === "rock") ||
-        (playerSelection === "scissors" && computerSelection === "paper")
-      ) {
-        playerScore++
+        (playerSelection === "scissor" && computerSelection === "paper")
+    ) {
+        playerScore++;
         return `You Win! ${playerSelection} beats ${computerSelection}`;
-      }
+    }
 
-      // Otherwise, the computer wins
-      computerScore++
-      return `You Lose! ${computerSelection} beats ${playerSelection}`;
-
+    // Otherwise, the computer wins
+    computerScore++;
+    return `You Lose! ${computerSelection} beats ${playerSelection}`;
 };
+
+let getComputerChoice = ()=>{
+    const chooseOne = ["rock", "paper", "scissor"]
+    const RandomIndex = Math.floor(Math.random() * chooseOne.length)
+    return chooseOne[RandomIndex]
+}
 
 
 const playRockPaperScissor = (userInput)=>{
-    let getComputerChoice = ()=>{
-        const chooseOne = ["rock", "paper", "scissor"]
-        const RandomIndex = Math.floor(Math.random() * chooseOne.length)
-        return chooseOne[RandomIndex]
-    }
     
     let computerSelection = getComputerChoice()
-    const compSelected = document.createElement('p')
-    compSelected.textContent = `Computer Selected:  ${computerSelection}`
-    container.appendChild(compSelected)
     
     let playerSelection = userInput.toLocaleLowerCase()
-    const playerDiv = document.createElement('p')
-    playerDiv.textContent=`player Selected:  ${playerSelection}`
-    container.appendChild(playerDiv)
 
-    console.log("player :",playerSelection)
-    console.log("computer :",computerSelection)
+
+    const previousCompSelected = container.querySelector('.comp-selected');
+    const previousPlayerSelected = container.querySelector('.player-selected');
+    const PreviousResult = container.querySelector('.result')
     
-    
+    if (previousCompSelected) {
+        container.removeChild(previousCompSelected);
+    }
+
+    if (previousPlayerSelected) {
+        container.removeChild(previousPlayerSelected);
+    }
+    if(PreviousResult){
+        container.removeChild(PreviousResult);
+    }
+
+
+    const compSelected = document.createElement('p');
+    compSelected.textContent = `Computer Selected: ${computerSelection}`;
+    compSelected.classList.add('comp-selected');
+    container.appendChild(compSelected);
+
+    const playerSelected = document.createElement('p');
+    playerSelected.textContent = `Player Selected: ${playerSelection}`;
+    playerSelected.classList.add('player-selected');
+    container.appendChild(playerSelected);
+
+
     const result = playRound(playerSelection, computerSelection);
-    const resultDiv = document.createElement('p')
+    const resultDiv = document.createElement('p');
     resultDiv.textContent = result
+    resultDiv.classList.add('result')
     container.appendChild(resultDiv)
 
 
-    const playerScoreDiv = document.createElement('p')
-    playerScoreDiv.textContent = `playerScore is ${playerScore}`
-    container.appendChild(playerScoreDiv)
+    updatePlayerScore(playerScore);
+    updateComputerScore(computerScore); 
+    if (playerScore==5){
+        // console.log("playerWins")
+        const playerWins = document.createElement('p')
+        playerWins.textContent=`Congrats you win ur score is ${playerScore} and comp score is ${computerScore} `
+        container.appendChild(playerWins)
+        
+        playAgain()
+    }
+    else if(computerScore==5){
+        // console.log("ComputerWins")
+        const CompWins = document.createElement('p')
+        CompWins.textContent=`Computer Wins player score is ${playerScore} and comp score is ${computerScore} `
+        container.appendChild(CompWins)
+        
+        playAgain()
+    }
+}
 
 
-    const compScoreDiv = document.createElement('p')
-    compScoreDiv.textContent = `computerScore is ${computerScore}`
-    container.appendChild(compScoreDiv)
-
-
+function playAgain(){
     const buttonDiv = document.createElement('button')
     buttonDiv.textContent="play Again"
     container.appendChild(buttonDiv)
     buttonDiv.classList.add("replay")
-    
+    disableButtons(playButtons);
     
     buttonDiv.addEventListener('click',function(){
         location.reload();
     })
 }
 
+// Function to update player's score
+function updatePlayerScore(score) {
+    playerScoreElement.textContent = score;
+}
 
-
+// Function to update computer's score
+function updateComputerScore(score) {
+    computerScoreElement.textContent = score;
+}
 
 const playButtons = document.querySelectorAll('.play');
 
@@ -89,7 +131,6 @@ function disableButtons(buttons) {
 playButtons.forEach(button => {
     button.addEventListener('click', function() {
         playRockPaperScissor(button.textContent);
-        disableButtons(playButtons);
     });
 });
 
